@@ -15,15 +15,13 @@ export default function MemberRow({
 }) {
   return (
     <FadeIn delay={delay / 1000} y={10}>
-      <Link href={`/politicians/${politician.slug}`} className="member-row">
-        <Avatar name={politician.name} color={color} />
-        <div className="member-info">
-          <div className="member-name-line">
-            <strong>{politician.name}</strong>
-            {politician.isChair && <span className="chair-badge">יו&quot;ר</span>}
-          </div>
-          <p className="muted">{politician.role}</p>
+      <Link href={`/politicians/${politician.slug}`} className="member-card">
+        <Avatar name={politician.name} color={color} size={64} />
+        <div className="member-name-line">
+          <strong>{politician.name}</strong>
+          {politician.isChair && <span className="chair-badge">יו&quot;ר</span>}
         </div>
+        <p className="muted member-role">{politician.role}</p>
         <TenureBadge termCount={politician.termCount} />
       </Link>
     </FadeIn>

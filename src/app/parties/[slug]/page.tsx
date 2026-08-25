@@ -33,7 +33,7 @@ export default async function PartyPage({
 
       <h2>חברי המפלגה</h2>
       {members.length > 0 ? (
-        <div className="member-list">
+        <div className="member-grid">
           {members.map((member, i) => (
             <MemberRow key={member.slug} politician={member} color={party.color} delay={i * 60} />
           ))}

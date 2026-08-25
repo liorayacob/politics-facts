@@ -1,30 +1,760 @@
 {
-  "_readme": "slug -> list of exact spellings this locality might appear under in a government export. Add more variants here if the import script reports a locality from your file as unmatched but you recognize it.",
-  "jerusalem": ["ירושלים"],
-  "tel-aviv": ["תל אביב-יפו", "תל אביב - יפו", "תל אביב יפו"],
-  "haifa": ["חיפה"],
-  "rishon-lezion": ["ראשון לציון", "ראשון לצין"],
-  "petah-tikva": ["פתח תקווה", "פתח תקוה"],
-  "ashdod": ["אשדוד"],
-  "netanya": ["נתניה"],
-  "beer-sheva": ["באר שבע", "באר שבע "],
-  "bnei-brak": ["בני ברק"],
-  "holon": ["חולון"],
-  "ramat-gan": ["רמת גן"],
-  "bat-yam": ["בת ים"],
-  "ashkelon": ["אשקלון"],
-  "rehovot": ["רחובות"],
-  "herzliya": ["הרצליה"],
-  "kfar-saba": ["כפר סבא"],
-  "hadera": ["חדרה"],
-  "modiin": ["מודיעין-מכבים-רעות", "מודיעין מכבים רעות", "מודיעיןמכביםרעות"],
-  "nazareth": ["נצרת"],
-  "raanana": ["רעננה"],
-  "givatayim": ["גבעתיים"],
-  "lod": ["לוד"],
-  "ramla": ["רמלה"],
-  "eilat": ["אילת"],
-  "kiryat-gat": ["קרית גת", "קריית גת"],
-  "kiryat-ata": ["קרית אתא", "קריית אתא"],
-  "kiryat-shmona": ["קרית שמונה", "קריית שמונה"]
+  "_readme": "slug -> list of exact spellings this locality might appear under in a government export. Auto-generated from municipality boundary names; add more variants if the import script reports a locality from your file as unmatched.",
+  "abu-gosh": [
+    "אבו גוש"
+  ],
+  "abu-snan": [
+    "אבו סנאן"
+  ],
+  "ako-acre": [
+    "עכו"
+  ],
+  "afula": [
+    "עפולה"
+  ],
+  "al-batuf": [
+    "אל-בטוף"
+  ],
+  "alfe-menashe": [
+    "אלפי מנשה"
+  ],
+  "alona": [
+    "אלונה"
+  ],
+  "arabe": [
+    "עראבה"
+  ],
+  "arad": [
+    "ערד"
+  ],
+  "ar-ara": [
+    "ערערה"
+  ],
+  "ar-ara-banegev": [
+    "ערערה בנגב"
+  ],
+  "ariel-west": [
+    "אריאל מערב"
+  ],
+  "ariel": [
+    "אריאל"
+  ],
+  "ashdod": [
+    "אשדוד"
+  ],
+  "ashkelon": [
+    "אשקלון"
+  ],
+  "azor": [
+    "אזור"
+  ],
+  "ba-ana": [
+    "בענה"
+  ],
+  "baka-al-rarbiya": [
+    "באקה אל גרבייה"
+  ],
+  "basma": [
+    "בסמה"
+  ],
+  "basmat-tivon": [
+    "בסמת טבעון"
+  ],
+  "bat-yam": [
+    "בת ים"
+  ],
+  "be-er-sheva": [
+    "באר שבע"
+  ],
+  "be-er-tuvya": [
+    "באר טוביה"
+  ],
+  "be-er-ya-akov": [
+    "באר יעקב"
+  ],
+  "bet-arye": [
+    "בית אריה"
+  ],
+  "beit-dagan": [
+    "בית דגן"
+  ],
+  "beit-el": [
+    "בית אל"
+  ],
+  "beit-shemesh": [
+    "בית שמש"
+  ],
+  "beitar-ilit": [
+    "ביתר עילית"
+  ],
+  "bet-jan": [
+    "בית ג'ן"
+  ],
+  "bet-she-an": [
+    "בית שאן"
+  ],
+  "binyamina-giv-at-ada": [
+    "בנימינה - גבעת עדה"
+  ],
+  "bir-al-maksur": [
+    "ביר אל-מכסור"
+  ],
+  "bnei-ayish": [
+    "בני עי\"ש"
+  ],
+  "bnei-brak": [
+    "בני ברק"
+  ],
+  "bnei-shim-on": [
+    "בני שמעון"
+  ],
+  "brener": [
+    "ברנר"
+  ],
+  "bu-eyne-nujidat": [
+    "בועיינה-נוג'ידאת"
+  ],
+  "bukata": [
+    "בוקעאתא"
+  ],
+  "bustan-al-marj": [
+    "בוסתאן אל-מרג'"
+  ],
+  "daburiya": [
+    "דבוריה"
+  ],
+  "dalyat-al-carmel": [
+    "דאלית אל-כרמל"
+  ],
+  "deir-hana": [
+    "דיר חנא"
+  ],
+  "dimona": [
+    "דימונה"
+  ],
+  "dir-al-asad": [
+    "דיר אל-אסד"
+  ],
+  "drom-hasharon": [
+    "דרום השרון"
+  ],
+  "efrat": [
+    "אפרת"
+  ],
+  "eilat": [
+    "אילת"
+  ],
+  "el-kasum": [
+    "אל קסום"
+  ],
+  "el-ad": [
+    "אלעד"
+  ],
+  "elkana": [
+    "אלקנה"
+  ],
+  "elyahin": [
+    "אליכין"
+  ],
+  "emanuel": [],
+  "emek-hamaayanot": [
+    "עמק המעיינות"
+  ],
+  "emek-hayarden": [
+    "עמק הירדן"
+  ],
+  "emek-hefer": [
+    "עמק חפר"
+  ],
+  "emek-lod": [
+    "עמק לוד"
+  ],
+  "emek-yizrael": [
+    "עמק יזרעאל"
+  ],
+  "eshkol": [
+    "אשכול"
+  ],
+  "even-yehuda": [
+    "אבן יהודה"
+  ],
+  "eyn-kinya": [
+    "עין קיניה"
+  ],
+  "eyn-mahel": [
+    "עין מאהל"
+  ],
+  "fasuta": [
+    "פסוטה"
+  ],
+  "furaydis": [
+    "פוריידיס"
+  ],
+  "gan-ra-ve": [
+    "גן רוה"
+  ],
+  "gan-yavne": [
+    "גן יבנה"
+  ],
+  "gane-tikva": [
+    "גני תקווה"
+  ],
+  "gderot": [
+    "גדרות"
+  ],
+  "gedera": [
+    "גדרה"
+  ],
+  "gezer": [
+    "גזר"
+  ],
+  "giva-at-shmuel": [
+    "גבעת שמואל"
+  ],
+  "givat-zeev": [
+    "גבעת זאב"
+  ],
+  "giv-atayim": [
+    "גבעתיים"
+  ],
+  "golan": [
+    "גולן"
+  ],
+  "gush-etzion": [],
+  "ha-arava-hatihona": [
+    "הערבה התיכונה"
+  ],
+  "hadera": [
+    "חדרה"
+  ],
+  "hagalil-ha-elyon": [
+    "הגליל העליון"
+  ],
+  "hagalil-hatah-ton": [
+    "הגליל התחתון",
+    "ללא שיפוט"
+  ],
+  "hagilbo-a": [
+    "הגלבוע"
+  ],
+  "haifa": [
+    "חיפה"
+  ],
+  "har-adar": [
+    "הר אדר"
+  ],
+  "har-hebron": [],
+  "harish": [
+    "חריש"
+  ],
+  "hatsor-haglilit": [
+    "חצור הגלילית"
+  ],
+  "hertseliya": [
+    "הרצליה"
+  ],
+  "hevel-eielot": [
+    "חבל אילות"
+  ],
+  "hevel-modi-in": [
+    "חבל מודיעין"
+  ],
+  "hevel-yavne": [
+    "חבל יבנה"
+  ],
+  "hod-hasharon": [
+    "הוד השרון"
+  ],
+  "hof-ashkelon": [
+    "חוף אשקלון"
+  ],
+  "hof-hacarmel": [
+    "חוף הכרמל"
+  ],
+  "hof-hasharon": [
+    "חוף השרון"
+  ],
+  "holon": [
+    "חולון"
+  ],
+  "hura": [
+    "חורה"
+  ],
+  "hurfeish": [
+    "חורפיש"
+  ],
+  "i-eblin": [
+    "אעבלין"
+  ],
+  "iksal": [
+    "אכסאל"
+  ],
+  "ilabun": [
+    "עילבון"
+  ],
+  "ilut": [
+    "עילוט"
+  ],
+  "jaljulya": [
+    "ג'לג'וליה"
+  ],
+  "jat": [
+    "ג'ת"
+  ],
+  "jdeyde-ma-ker": [
+    "ג'דיידה-מכר"
+  ],
+  "yerushalayim-jerusalem": [
+    "ירושלים"
+  ],
+  "jiser-a-zarka": [
+    "ג'סר א-זרקא"
+  ],
+  "jish-gush-halav": [
+    "גוש חלב (ג'יש)"
+  ],
+  "julis": [
+    "ג'וליס"
+  ],
+  "ka-abiya-tabash-hajajre": [
+    "כעביה - טבאש - חג'אג'רה"
+  ],
+  "kabul": [
+    "כאבול"
+  ],
+  "kadima-tsoran": [
+    "קדימה - צורן"
+  ],
+  "kafar-bara": [
+    "כפר ברא"
+  ],
+  "kafar-kara": [
+    "כפר קרע"
+  ],
+  "kafar-kasem": [
+    "כפר קאסם"
+  ],
+  "kalanswa": [
+    "קלנסווה"
+  ],
+  "karmiel": [
+    "כרמיאל"
+  ],
+  "katsrin": [
+    "קצרין"
+  ],
+  "kawkab-abu-al-hija": [
+    "כאוכב אבו אל-היג'א"
+  ],
+  "kdumim": [
+    "קדומים"
+  ],
+  "kernei-shomron": [],
+  "kafar-kama": [
+    "כפר כמא"
+  ],
+  "kfar-kana": [
+    "כפר כנא"
+  ],
+  "kfar-manda": [
+    "כפר מנדא"
+  ],
+  "kfar-saba": [
+    "כפר סבא"
+  ],
+  "kfar-shmaryahu": [
+    "כפר שמריהו"
+  ],
+  "kfar-tavor": [
+    "כפר תבור"
+  ],
+  "kfar-vradim": [
+    "כפר ורדים"
+  ],
+  "kfar-yasif": [
+    "כפר יאסיף"
+  ],
+  "kfar-yona": [
+    "כפר יונה"
+  ],
+  "kiryat-arba": [],
+  "kiryat-ata": [
+    "קרית אתא"
+  ],
+  "kiryat-biyalik": [
+    "קרית ביאליק"
+  ],
+  "kiryat-ekron": [
+    "קרית עקרון"
+  ],
+  "kiryat-gat": [
+    "קרית גת"
+  ],
+  "kiryat-mal-ahi": [
+    "קרית מלאכי"
+  ],
+  "kiryat-motskin": [
+    "קרית מוצקין"
+  ],
+  "kiryat-ono": [
+    "קרית אונו"
+  ],
+  "kiryat-shmona": [
+    "קרית שמונה"
+  ],
+  "kiryat-tiv-on": [
+    "קרית טבעון"
+  ],
+  "kiryat-yam": [
+    "קרית ים"
+  ],
+  "kiryat-ye-arim": [
+    "קרית יערים"
+  ],
+  "kisrah-smi-a": [
+    "כסרא - סמיע"
+  ],
+  "kohav-yair": [
+    "כוכב יאיר"
+  ],
+  "kseyfe": [
+    "כסייפה"
+  ],
+  "lahish": [
+    "לכיש"
+  ],
+  "lakiye": [
+    "לקיה"
+  ],
+  "lehavim": [
+    "להבים"
+  ],
+  "lev-hasharon": [
+    "לב השרון"
+  ],
+  "lod": [
+    "לוד"
+  ],
+  "maale-adomim": [],
+  "maale-efraim": [],
+  "ma-ale-i-ron": [
+    "מעלה עירון"
+  ],
+  "ma-ale-yosef": [
+    "מעלה יוסף"
+  ],
+  "ma-alot-tarshiha": [
+    "מעלות-תרשיחא"
+  ],
+  "majd-al-krum": [
+    "מג'ד אל-כרום"
+  ],
+  "majdel-shams": [
+    "מג'דל שמס"
+  ],
+  "mas-ade": [
+    "מסעדה"
+  ],
+  "ma-te-asher": [
+    "מטה אשר"
+  ],
+  "mate-binyamin": [],
+  "ma-te-yehuda": [
+    "מטה יהודה"
+  ],
+  "mazkeret-batya": [
+    "מזכרת בתיה"
+  ],
+  "mazra-a": [
+    "מזרעה"
+  ],
+  "megido": [
+    "מגידו"
+  ],
+  "megilot-yam-hamelach": [],
+  "meitar": [
+    "מיתר"
+  ],
+  "menashe": [
+    "מנשה"
+  ],
+  "merhavim": [
+    "מרחבים"
+  ],
+  "merom-hagalil": [
+    "מרום הגליל"
+  ],
+  "metula": [
+    "מטולה"
+  ],
+  "mevaseret-tsiyon": [
+    "מבשרת ציון"
+  ],
+  "mevo-ot-hahermon": [
+    "מבואות החרמון"
+  ],
+  "migdal": [
+    "מגדל"
+  ],
+  "migdal-ha-emek": [
+    "מגדל העמק"
+  ],
+  "migdal-tefen": [
+    "מגדל תפן"
+  ],
+  "mi-ilya": [
+    "מעיליא"
+  ],
+  "misgav": [
+    "משגב"
+  ],
+  "mishad": [
+    "משהד"
+  ],
+  "mitspe-ramon": [
+    "מצפה רמון"
+  ],
+  "modiin-ilit": [
+    "מודיעין עילית"
+  ],
+  "modi-in-makabim-re-ut": [
+    "מודיעין-מכבים-רעות",
+    "מודיעיןמכביםרעות"
+  ],
+  "mrar": [
+    "מג'אר"
+  ],
+  "nahal-sorek": [
+    "נחל שורק"
+  ],
+  "nahariya": [
+    "נהריה"
+  ],
+  "nahef": [
+    "נחף"
+  ],
+  "natsrat-ilit": [
+    "נצרת עילית"
+  ],
+  "natsrat-nazareth": [
+    "נצרת"
+  ],
+  "nes-tsiyona": [
+    "נס ציונה"
+  ],
+  "nesher": [
+    "נשר"
+  ],
+  "netanya": [
+    "נתניה"
+  ],
+  "netivot": [
+    "נתיבות"
+  ],
+  "neve-midbar": [
+    "נווה מדבר"
+  ],
+  "no-jurisdiction": [
+    "ללא שיפוט"
+  ],
+  "ofakim": [
+    "אופקים"
+  ],
+  "omer": [
+    "עומר"
+  ],
+  "or-akiva": [
+    "אור עקיבא"
+  ],
+  "or-yehuda": [
+    "אור יהודה"
+  ],
+  "oranit": [
+    "אורנית"
+  ],
+  "ossfiya": [
+    "עוספייא"
+  ],
+  "pardes-hana-karkur": [
+    "פרדס חנה - כרכור"
+  ],
+  "pardesiya": [
+    "פרדסיה"
+  ],
+  "petah-tikva": [
+    "פתח תקווה"
+  ],
+  "pki-in-buke-a": [
+    "פקיעין (בוקייעה)"
+  ],
+  "ra-anana": [
+    "רעננה"
+  ],
+  "rahat": [
+    "רהט"
+  ],
+  "rajar": [
+    "ע'ג'ר"
+  ],
+  "ramat-gan": [
+    "רמת גן"
+  ],
+  "ramat-hasharon": [
+    "רמת השרון"
+  ],
+  "ramat-hovav": [
+    "נאות חובב"
+  ],
+  "ramat-negev": [
+    "רמת נגב"
+  ],
+  "ramat-yishay": [
+    "רמת ישי"
+  ],
+  "ra-me": [
+    "ראמה"
+  ],
+  "ramla": [
+    "רמלה"
+  ],
+  "rehasim": [
+    "רכסים"
+  ],
+  "rehovot": [
+    "רחובות"
+  ],
+  "reyne": [
+    "ריינה"
+  ],
+  "rishon-letsiyon": [
+    "ראשון לציון"
+  ],
+  "rosh-ha-ayin": [
+    "ראש העין"
+  ],
+  "rosh-pina": [
+    "ראש פינה"
+  ],
+  "sah-nin": [
+    "סח'נין"
+  ],
+  "sajur": [
+    "סאג'ור"
+  ],
+  "savyon": [
+    "סביון"
+  ],
+  "sderot": [
+    "שדרות"
+  ],
+  "sdot-negev": [
+    "שדות נגב"
+  ],
+  "segev-shalom": [
+    "שגב שלום"
+  ],
+  "sha-ab": [
+    "שעב"
+  ],
+  "sha-ar-hanegev": [
+    "שער הנגב"
+  ],
+  "shafir": [
+    "שפיר"
+  ],
+  "shfaram": [
+    "שפרעם"
+  ],
+  "shibli-um-al-ranem": [
+    "שבלי - אום אל-ג'נם"
+  ],
+  "shlomi": [
+    "שלומי"
+  ],
+  "shoham": [
+    "שהם"
+  ],
+  "shomron": [],
+  "tamar": [
+    "תמר"
+  ],
+  "tamra": [
+    "טמרה"
+  ],
+  "taybe": [
+    "טייבה"
+  ],
+  "tel-aviv-yafo": [
+    "תל אביב -יפו",
+    "תל אביב יפו"
+  ],
+  "tel-mond": [
+    "תל מונד"
+  ],
+  "tel-sheva": [
+    "תל שבע"
+  ],
+  "tira": [
+    "טירה"
+  ],
+  "tirat-karmel": [
+    "טירת כרמל"
+  ],
+  "tsfat": [
+    "צפת"
+  ],
+  "tuba-zangariya": [
+    "טובא-זנגריה"
+  ],
+  "tur-an": [
+    "טורעאן"
+  ],
+  "tverya-tiberias": [
+    "טבריה"
+  ],
+  "um-al-fahem": [
+    "אום אל-פחם"
+  ],
+  "yafi-a": [
+    "יפיע"
+  ],
+  "yanuh-jat": [
+    "יאנוח - ג'ת"
+  ],
+  "yavne": [
+    "יבנה"
+  ],
+  "yavne-el": [
+    "יבנאל"
+  ],
+  "yehud-monoson": [
+    "יהוד -מונסון"
+  ],
+  "yeroham": [
+    "ירוחם"
+  ],
+  "yesud-hama-ala": [
+    "יסוד המעלה"
+  ],
+  "yirka": [
+    "ירכא"
+  ],
+  "yoav": [
+    "יואב"
+  ],
+  "yokne-am-ilit": [
+    "יקנעם עילית"
+  ],
+  "zarzir": [
+    "זרזיר"
+  ],
+  "zemer": [
+    "זמר"
+  ],
+  "zih-ron-ya-akov": [
+    "זכרון יעקב"
+  ],
+  "zvulun": [
+    "זבולון"
+  ]
 }

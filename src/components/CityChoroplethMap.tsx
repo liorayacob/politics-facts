@@ -75,34 +75,39 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
             ✕
           </button>
         </div>
-        <p className="muted">אחוז הצבעה: {selectedCity.turnoutPercent}%</p>
-        <table>
-          <thead>
-            <tr>
-              <th>מפלגה</th>
-              <th>אחוז הצבעה</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(selectedCity.votePercentByParty)
-              .sort((a, b) => b[1] - a[1])
-              .map(([partySlug, percent]) => {
-                const party = parties.find((p) => p.slug === partySlug);
-                return (
-                  <tr key={partySlug}>
-                    <td>
-                      <span
-                        className="party-dot"
-                        style={{ background: party?.color ?? "#999", marginInlineEnd: "0.5rem" }}
-                      />
-                      {party?.name ?? partySlug}
-                    </td>
-                    <td>{percent}%</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <p className="muted" style={{ marginBottom: 0 }}>
+          אחוז הצבעה: {selectedCity.turnoutPercent}%
+        </p>
+        <div className="modal-body">
+          <table>
+            <thead>
+              <tr>
+                <th>מפלגה</th>
+                <th>אחוז הצבעה</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(selectedCity.votePercentByParty)
+                .filter(([, percent]) => percent > 0)
+                .sort((a, b) => b[1] - a[1])
+                .map(([partySlug, percent]) => {
+                  const party = parties.find((p) => p.slug === partySlug);
+                  return (
+                    <tr key={partySlug}>
+                      <td>
+                        <span
+                          className="party-dot"
+                          style={{ background: party?.color ?? "#999", marginInlineEnd: "0.5rem" }}
+                        />
+                        {party?.name ?? partySlug}
+                      </td>
+                      <td>{percent}%</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

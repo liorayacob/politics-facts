@@ -17,7 +17,7 @@ export default function PoliticiansPage() {
               <span className="party-dot" style={{ background: party.color }} />
               <h2 style={{ margin: 0 }}>{party.name}</h2>
             </div>
-            <div className="member-list">
+            <div className="member-grid">
               {members.map((member, i) => (
                 <MemberRow key={member.slug} politician={member} color={party.color} delay={i * 60} />
               ))}
