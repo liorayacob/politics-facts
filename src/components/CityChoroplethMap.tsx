@@ -35,9 +35,9 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
     const color = city ? getPartyBySlug(getWinningPartySlug(city))?.color ?? "#cbd5e1" : "#e2e8f0";
     return {
       fillColor: color,
-      fillOpacity: 0.75,
-      color: "#ffffff",
-      weight: 1.5,
+      fillOpacity: 0.8,
+      color: "#241f16",
+      weight: 1.2,
     };
   }
 
@@ -52,7 +52,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
 
     layer.on({
       mouseover: (e: LeafletMouseEvent) => {
-        (e.target as Path).setStyle({ fillOpacity: 0.95, weight: 3, color: "#f3ede2" });
+        (e.target as Path).setStyle({ fillOpacity: 0.95, weight: 3, color: "#b8791a" });
       },
       mouseout: (e: LeafletMouseEvent) => {
         (e.target as Path).setStyle(styleFeature(feature));
@@ -123,7 +123,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
             >
               <TileLayer
                 attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               />
               <GeoJSON data={geoData} style={styleFeature} onEachFeature={onEachFeature} />
             </MapContainer>

@@ -23,15 +23,15 @@ export default function SeatsChart({ elections }: { elections: ElectionResult[] 
     <div className="chart-wrap">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#2c2f42" />
-          <XAxis dataKey="name" stroke="#9994ab" tick={{ fill: "#9994ab" }} />
-          <YAxis stroke="#9994ab" tick={{ fill: "#9994ab" }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e6ddc7" />
+          <XAxis dataKey="name" stroke="#7c7261" tick={{ fill: "#7c7261" }} />
+          <YAxis stroke="#7c7261" tick={{ fill: "#7c7261" }} />
           <Tooltip
-            contentStyle={{ background: "#1c1e2e", border: "1px solid #2c2f42", borderRadius: 8 }}
-            labelStyle={{ color: "#f3ede2" }}
-            itemStyle={{ color: "#f3ede2" }}
+            contentStyle={{ background: "#241f16", border: "1px solid #241f16", borderRadius: 8 }}
+            labelStyle={{ color: "#faf6ee" }}
+            itemStyle={{ color: "#faf6ee" }}
           />
-          <Legend wrapperStyle={{ color: "#f3ede2" }} />
+          <Legend wrapperStyle={{ color: "#241f16" }} />
           {parties.map((party) => (
             <Bar key={party.slug} dataKey={party.slug} name={party.name} fill={party.color} />
           ))}
