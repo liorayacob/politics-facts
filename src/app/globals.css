@@ -345,10 +345,44 @@ a {
 
 /* City search */
 
+.search-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
 .search-box {
   position: relative;
   max-width: 440px;
   margin-top: 1.5rem;
+}
+
+.search-row .search-box {
+  margin-top: 0;
+}
+
+.search-box-flex {
+  flex: 1 1 260px;
+  max-width: none;
+}
+
+.search-box-select {
+  flex: 0 1 200px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .search-box-input {

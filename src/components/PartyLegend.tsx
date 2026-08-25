@@ -1,6 +1,13 @@
-import { parties } from "@/data/parties";
+import { parties as allParties } from "@/data/parties";
+import type { Party } from "@/data/types";
 
-export default function PartyLegend({ title = "מקרא מפלגות" }: { title?: string }) {
+export default function PartyLegend({
+  title = "מקרא מפלגות",
+  parties = allParties,
+}: {
+  title?: string;
+  parties?: Party[];
+}) {
   return (
     <div className="map-legend-panel">
       <h3>{title}</h3>

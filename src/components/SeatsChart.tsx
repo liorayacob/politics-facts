@@ -52,22 +52,26 @@ export default function SeatsChart({ elections }: { elections: ElectionResult[] 
     ...election.seatsByParty,
   }));
 
+  const partiesInChart = parties.filter((party) =>
+    elections.some((election) => (election.seatsByParty[party.slug] ?? 0) > 0)
+  );
+
   return (
     <div>
-      <div className="chart-wrap chart-wrap-compact">
+      <div className="chart-wrap">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} layout="vertical" margin={{ right: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e6ddc7" horizontal={false} />
-            <XAxis type="number" stroke="#7c7261" tick={{ fill: "#7c7261" }} />
-            <YAxis type="category" dataKey="name" stroke="#7c7261" tick={{ fill: "#7c7261" }} width={70} />
+          <BarChart data={data} margin={{ top: 8 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e6ddc7" vertical={false} />
+            <XAxis dataKey="name" stroke="#7c7261" tick={{ fill: "#7c7261" }} />
+            <YAxis stroke="#7c7261" tick={{ fill: "#7c7261" }} />
             <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(184, 121, 26, 0.08)" }} />
-            {parties.map((party) => (
+            {partiesInChart.map((party) => (
               <Bar key={party.slug} dataKey={party.slug} name={party.name} stackId="seats" fill={party.color} />
             ))}
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <PartyLegend title="מקרא" />
+      <PartyLegend title="מקרא" parties={partiesInChart} />
     </div>
   );
 }
