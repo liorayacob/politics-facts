@@ -10,7 +10,7 @@ export const parties: Party[] = [
     slug: "likud",
     name: "הליכוד",
     founded: 1973,
-    color: "#ae2929",
+    color: "#3ea6da",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
