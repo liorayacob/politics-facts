@@ -52,7 +52,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
 
     layer.on({
       mouseover: (e: LeafletMouseEvent) => {
-        (e.target as Path).setStyle({ fillOpacity: 0.95, weight: 3, color: "#16233f" });
+        (e.target as Path).setStyle({ fillOpacity: 0.95, weight: 3, color: "#f3ede2" });
       },
       mouseout: (e: LeafletMouseEvent) => {
         (e.target as Path).setStyle(styleFeature(feature));
@@ -123,7 +123,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
             >
               <TileLayer
                 attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
               />
               <GeoJSON data={geoData} style={styleFeature} onEachFeature={onEachFeature} />
             </MapContainer>

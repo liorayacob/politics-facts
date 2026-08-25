@@ -1,6 +1,8 @@
 // Placeholder data — real, recognizable party names so the map/legend look
 // meaningful, but colors, founding years, and descriptions are all
-// placeholders for you to replace with sourced facts.
+// placeholders for you to replace with sourced facts. Colors were picked
+// purely for maximum visual distinction on the map/legend (evenly spread
+// hues) — they don't try to match each party's real branding.
 import type { Party } from "./types";
 
 export const parties: Party[] = [
@@ -8,7 +10,7 @@ export const parties: Party[] = [
     slug: "likud",
     name: "הליכוד",
     founded: 1973,
-    color: "#3f7fdb",
+    color: "#ff5d5d",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -16,7 +18,7 @@ export const parties: Party[] = [
     slug: "yesh-atid",
     name: "יש עתיד",
     founded: 2012,
-    color: "#14b8a6",
+    color: "#4ecdc4",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -24,7 +26,7 @@ export const parties: Party[] = [
     slug: "national-unity",
     name: "המחנה הממלכתי",
     founded: 2020,
-    color: "#6366f1",
+    color: "#4d96ff",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -32,7 +34,7 @@ export const parties: Party[] = [
     slug: "religious-zionism",
     name: "הציונות הדתית",
     founded: 1999,
-    color: "#10b981",
+    color: "#43aa8b",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -40,7 +42,7 @@ export const parties: Party[] = [
     slug: "shas",
     name: "ש\"ס",
     founded: 1984,
-    color: "#f59e0b",
+    color: "#f4784a",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -48,7 +50,7 @@ export const parties: Party[] = [
     slug: "torah-judaism",
     name: "יהדות התורה",
     founded: 1992,
-    color: "#a855f7",
+    color: "#7c5cff",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -56,7 +58,7 @@ export const parties: Party[] = [
     slug: "yisrael-beiteinu",
     name: "ישראל ביתנו",
     founded: 1999,
-    color: "#ef4444",
+    color: "#d65db1",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },
@@ -64,7 +66,7 @@ export const parties: Party[] = [
     slug: "labor",
     name: "העבודה",
     founded: 1968,
-    color: "#e6a23c",
+    color: "#b0e64c",
     description: "תיאור לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     ideology: ["תגית 1", "תגית 2"],
   },

@@ -17,15 +17,15 @@ function Logo() {
       <rect width="32" height="32" rx="9" fill="url(#logo-gradient)" />
       <path
         d="M9 16.5 14 21.5 23 11"
-        stroke="#ffffff"
-        strokeWidth="2.6"
+        stroke="#1c1506"
+        strokeWidth="2.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <defs>
         <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
-          <stop offset="0" stopColor="#4f8ef7" />
-          <stop offset="1" stopColor="#2f66c9" />
+          <stop offset="0" stopColor="#f0b429" />
+          <stop offset="1" stopColor="#d99a1b" />
         </linearGradient>
       </defs>
     </svg>
