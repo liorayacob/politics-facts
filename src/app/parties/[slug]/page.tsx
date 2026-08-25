@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { parties, getPartyBySlug } from "@/data/parties";
-import { politicians } from "@/data/politicians";
-import Link from "next/link";
+import { getPartyMembers } from "@/data/politicians";
+import MemberRow from "@/components/MemberRow";
 
 export function generateStaticParams() {
   return parties.map((party) => ({ slug: party.slug }));
@@ -16,14 +16,12 @@ export default async function PartyPage({
   const party = getPartyBySlug(slug);
   if (!party) notFound();
 
-  const members = politicians.filter((p) => p.partySlug === party.slug);
+  const members = getPartyMembers(party.slug);
 
   return (
     <div>
       <h1>{party.name}</h1>
-      <p className="muted">
-        נוסדה ב-{party.founded} · יו&quot;ר: {party.leader}
-      </p>
+      <p className="muted">נוסדה ב-{party.founded}</p>
       <div className="tag-list">
         {party.ideology.map((tag) => (
           <span key={tag} className="tag">
@@ -36,12 +34,9 @@ export default async function PartyPage({
       {members.length > 0 && (
         <>
           <h2>חברי המפלגה</h2>
-          <div className="card-grid">
-            {members.map((m) => (
-              <Link key={m.slug} href={`/politicians/${m.slug}`} className="card card-link">
-                <strong>{m.name}</strong>
-                <p className="muted">{m.role}</p>
-              </Link>
+          <div className="member-list">
+            {members.map((member) => (
+              <MemberRow key={member.slug} politician={member} color={party.color} />
             ))}
           </div>
         </>

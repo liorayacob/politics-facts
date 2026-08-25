@@ -2,7 +2,7 @@ export interface Party {
   slug: string;
   name: string;
   founded: number;
-  leader: string;
+  color: string;
   description: string;
   ideology: string[];
 }
@@ -13,6 +13,8 @@ export interface Politician {
   partySlug: string;
   role: string;
   bio: string;
+  isChair: boolean;
+  termCount: number;
 }
 
 export interface ElectionResult {
