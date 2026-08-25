@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import type { Layer, Path, LeafletMouseEvent, PathOptions } from "leaflet";
+import type { Map as LeafletMap, Layer, Path, LeafletMouseEvent, PathOptions } from "leaflet";
 import type { Feature, FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
 import "leaflet/dist/leaflet.css";
 import type { CityResult } from "@/data/types";
@@ -19,6 +19,11 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
   const [geoData, setGeoData] = useState<FeatureCollection | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [query, setQuery] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const mapRef = useRef<LeafletMap | null>(null);
+  const layersRef = useRef<Map<string, Layer>>(new Map());
 
   useEffect(() => {
     setMounted(true);
@@ -29,6 +34,21 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
   }, []);
 
   const selectedCity = cities.find((c) => c.slug === selectedSlug) ?? null;
+
+  const suggestions =
+    query.trim().length > 0
+      ? cities.filter((c) => c.name.includes(query.trim())).slice(0, 8)
+      : [];
+
+  function focusCity(slug: string) {
+    setSelectedSlug(slug);
+    setQuery("");
+    setShowSuggestions(false);
+    const layer = layersRef.current.get(slug) as (Layer & { getBounds?: () => L_LatLngBounds }) | undefined;
+    if (layer?.getBounds && mapRef.current) {
+      mapRef.current.flyToBounds(layer.getBounds(), { maxZoom: 12, duration: 0.75 });
+    }
+  }
 
   function styleFeature(feature?: Feature<Geometry, GeoJsonProperties>): PathOptions {
     const city = cityFromFeature(feature, cities);
@@ -44,6 +64,8 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
   function onEachFeature(feature: Feature<Geometry, GeoJsonProperties>, layer: Layer) {
     const city = cityFromFeature(feature, cities);
     if (!city) return;
+
+    layersRef.current.set(city.slug, layer);
 
     layer.bindTooltip(
       `<strong>${city.name}</strong><br/>אחוז הצבעה: ${city.turnoutPercent}%`,
@@ -114,12 +136,48 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
 
   return (
     <>
+      <div className="city-search">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setShowSuggestions(true);
+          }}
+          onFocus={() => setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && suggestions.length > 0) {
+              focusCity(suggestions[0].slug);
+            }
+          }}
+          placeholder="חיפוש עיר במפה…"
+          className="city-search-input"
+          aria-label="חיפוש עיר"
+        />
+        {showSuggestions && suggestions.length > 0 && (
+          <div className="city-search-suggestions">
+            {suggestions.map((c) => (
+              <button
+                key={c.slug}
+                type="button"
+                className="city-search-suggestion"
+                onMouseDown={() => focusCity(c.slug)}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="map-layout">
         <div className="map-card">
           {!geoData ? (
             <div className="map-loading">טוען מפה…</div>
           ) : (
             <MapContainer
+              ref={mapRef}
               center={[31.6, 34.95]}
               zoom={8}
               minZoom={7}
@@ -155,3 +213,5 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
     </>
   );
 }
+
+type L_LatLngBounds = ReturnType<LeafletMap["getBounds"]>;

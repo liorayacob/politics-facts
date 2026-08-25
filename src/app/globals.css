@@ -343,6 +343,63 @@ a {
   vertical-align: middle;
 }
 
+/* City search */
+
+.city-search {
+  position: relative;
+  max-width: 440px;
+  margin-top: 1.5rem;
+}
+
+.city-search-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: var(--shadow-sm);
+}
+
+.city-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.city-search-suggestions {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  z-index: 20;
+}
+
+.city-search-suggestion {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--foreground);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.city-search-suggestion:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
 /* Map */
 
 .map-layout {
