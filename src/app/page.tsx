@@ -8,17 +8,17 @@ export default function Home() {
 
   return (
     <div>
-      <h1>עובדות וסטטיסטיקות על הפוליטיקה בישראל</h1>
-      <p className="muted">
-        אתר עצמאי שאוסף עובדות, נתוני בחירות ופרופילים של מפלגות ופוליטיקאים.
-      </p>
-
-      <h2>בזמן האחרון</h2>
-      <p>
-        בבחירות לכנסת ה-{latestElection.knesset} ({latestElection.year}) עמד
-        אחוז ההצבעה על {latestElection.turnoutPercent}%.{" "}
-        <Link href="/elections">לכל נתוני הבחירות ←</Link>
-      </p>
+      <div className="hero">
+        <h1>עובדות וסטטיסטיקות על הפוליטיקה בישראל</h1>
+        <p className="muted">
+          אתר עצמאי שאוסף עובדות, נתוני בחירות ופרופילים של מפלגות וחברי כנסת.
+        </p>
+        <p>
+          בבחירות לכנסת ה-{latestElection.knesset} ({latestElection.year}) עמד
+          אחוז ההצבעה על {latestElection.turnoutPercent}%.{" "}
+          <Link href="/elections">לכל נתוני הבחירות ←</Link>
+        </p>
+      </div>
 
       <h2>מפלגות</h2>
       <div className="card-grid">
@@ -30,7 +30,7 @@ export default function Home() {
         ))}
       </div>
 
-      <h2>פוליטיקאים</h2>
+      <h2>חברי כנסת</h2>
       <div className="card-grid">
         {politicians.map((politician) => (
           <Link

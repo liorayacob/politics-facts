@@ -5,7 +5,7 @@ import { getPartyBySlug } from "@/data/parties";
 export default function PoliticiansPage() {
   return (
     <div>
-      <h1>פוליטיקאים</h1>
+      <h1>חברי כנסת</h1>
       <div className="card-grid">
         {politicians.map((politician) => {
           const party = getPartyBySlug(politician.partySlug);
