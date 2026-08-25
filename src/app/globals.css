@@ -273,10 +273,140 @@ a {
 }
 
 .party-dot {
+  display: inline-block;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Map */
+
+.map-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 3 / 7;
+  margin: 1.75rem auto 0;
+  background: radial-gradient(circle at 30% 15%, var(--background-soft), #ffffff 65%);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.city-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.city-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgba(22, 35, 63, 0.1), var(--shadow-sm);
+  transition: transform 0.15s ease;
+}
+
+.city-marker:hover .city-dot {
+  transform: scale(1.35);
+}
+
+.city-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.city-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--foreground);
+  color: #ffffff;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 5;
+}
+
+.city-marker:hover .city-tooltip {
+  opacity: 1;
+}
+
+.map-caption {
+  text-align: center;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+/* Modal */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.modal-close {
+  background: var(--background-soft);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.modal-close:hover {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
 }
 
 .member-list {
