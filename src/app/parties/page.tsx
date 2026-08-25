@@ -7,14 +7,14 @@ export default function PartiesPage() {
     <div>
       <h1>מפלגות</h1>
       <div className="card-grid">
-        {parties.map((party) => {
+        {parties.map((party, i) => {
           const chair = getPartyChair(party.slug);
           return (
             <Link
               key={party.slug}
               href={`/parties/${party.slug}`}
-              className="card card-link party-card"
-              style={{ ["--party-color" as string]: party.color }}
+              className="card card-link party-card reveal"
+              style={{ ["--party-color" as string]: party.color, animationDelay: `${i * 60}ms` }}
             >
               <strong>{party.name}</strong>
               <p className="muted">

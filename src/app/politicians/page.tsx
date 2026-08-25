@@ -18,8 +18,8 @@ export default function PoliticiansPage() {
               <h2 style={{ margin: 0 }}>{party.name}</h2>
             </div>
             <div className="member-list">
-              {members.map((member) => (
-                <MemberRow key={member.slug} politician={member} color={party.color} />
+              {members.map((member, i) => (
+                <MemberRow key={member.slug} politician={member} color={party.color} delay={i * 60} />
               ))}
             </div>
           </div>
