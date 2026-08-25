@@ -66,7 +66,7 @@ export default function SeatsChart({ elections }: { elections: ElectionResult[] 
             <YAxis stroke="#7c7261" tick={{ fill: "#7c7261" }} />
             <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(184, 121, 26, 0.08)" }} />
             {partiesInChart.map((party) => (
-              <Bar key={party.slug} dataKey={party.slug} name={party.name} stackId="seats" fill={party.color} />
+              <Bar key={party.slug} dataKey={party.slug} name={party.name} fill={party.color} />
             ))}
           </BarChart>
         </ResponsiveContainer>
