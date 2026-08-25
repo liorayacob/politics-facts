@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import type { CityResult } from "@/data/types";
 import { parties, getPartyBySlug } from "@/data/parties";
 import { getWinningPartySlug } from "@/data/cities";
+import PartyLegend from "./PartyLegend";
 
 function cityFromFeature(feature: Feature<Geometry, GeoJsonProperties> | undefined, cities: CityResult[]) {
   const slug = feature?.properties?.slug as string | undefined;
@@ -136,7 +137,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
 
   return (
     <>
-      <div className="city-search">
+      <div className="search-box">
         <input
           type="text"
           value={query}
@@ -152,16 +153,16 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
             }
           }}
           placeholder="חיפוש עיר במפה…"
-          className="city-search-input"
+          className="search-box-input"
           aria-label="חיפוש עיר"
         />
         {showSuggestions && suggestions.length > 0 && (
-          <div className="city-search-suggestions">
+          <div className="search-box-suggestions">
             {suggestions.map((c) => (
               <button
                 key={c.slug}
                 type="button"
-                className="city-search-suggestion"
+                className="search-box-suggestion"
                 onMouseDown={() => focusCity(c.slug)}
               >
                 {c.name}
@@ -193,15 +194,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
           )}
         </div>
 
-        <div className="map-legend-panel">
-          <h3>מקרא מפלגות</h3>
-          {parties.map((party) => (
-            <div key={party.slug} className="map-legend-row">
-              <span className="party-dot" style={{ background: party.color }} />
-              {party.name}
-            </div>
-          ))}
-        </div>
+        <PartyLegend />
       </div>
 
       <p className="muted map-caption">

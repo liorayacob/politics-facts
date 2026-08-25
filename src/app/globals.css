@@ -345,13 +345,13 @@ a {
 
 /* City search */
 
-.city-search {
+.search-box {
   position: relative;
   max-width: 440px;
   margin-top: 1.5rem;
 }
 
-.city-search-input {
+.search-box-input {
   width: 100%;
   font-family: inherit;
   font-size: 0.95rem;
@@ -363,13 +363,13 @@ a {
   box-shadow: var(--shadow-sm);
 }
 
-.city-search-input:focus {
+.search-box-input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-.city-search-suggestions {
+.search-box-suggestions {
   position: absolute;
   top: calc(100% + 0.4rem);
   right: 0;
@@ -379,10 +379,10 @@ a {
   border-radius: 0.9rem;
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  z-index: 20;
+  z-index: 1500;
 }
 
-.city-search-suggestion {
+.search-box-suggestion {
   display: block;
   width: 100%;
   text-align: right;
@@ -395,7 +395,7 @@ a {
   cursor: pointer;
 }
 
-.city-search-suggestion:hover {
+.search-box-suggestion:hover {
   background: var(--accent-soft);
   color: var(--accent);
 }
@@ -422,12 +422,15 @@ a {
 }
 
 .map-legend-panel {
-  flex: 0 0 200px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.1rem 1.25rem;
   box-shadow: var(--shadow-sm);
+}
+
+.map-layout .map-legend-panel {
+  flex: 0 0 220px;
 }
 
 .map-legend-panel h3 {
@@ -437,18 +440,22 @@ a {
   color: var(--foreground);
 }
 
+.map-legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
 .map-legend-row {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
   padding: 0.4rem 0;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 600;
   border-bottom: 1px solid var(--border);
-}
-
-.map-legend-row:last-child {
-  border-bottom: none;
+  min-width: 0;
+  line-height: 1.25;
 }
 
 .map-loading {
@@ -686,6 +693,31 @@ tbody tr:hover {
   border-radius: var(--radius);
   padding: 1rem;
   box-shadow: var(--shadow-sm);
+}
+
+.chart-wrap-compact {
+  height: 160px;
+}
+
+.chart-tooltip {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow-md);
+}
+
+.chart-tooltip strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.chart-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.1rem 0;
 }
 
 h1 {
