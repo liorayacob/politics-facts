@@ -2,7 +2,7 @@ import { elections } from "@/data/elections";
 import { parties } from "@/data/parties";
 import { cities } from "@/data/cities";
 import SeatsChart from "@/components/SeatsChart";
-import IsraelMap from "@/components/IsraelMap";
+import MapSection from "@/components/MapSection";
 
 export default function ElectionsPage() {
   return (
@@ -39,11 +39,7 @@ export default function ElectionsPage() {
       </table>
 
       <h2>מפה לפי ערים</h2>
-      <p className="muted">
-        עברו עם העכבר מעל עיר לצפייה באחוז ההצבעה, ולחצו עליה כדי לראות את
-        פילוח הקולות בין המפלגות.
-      </p>
-      <IsraelMap cities={cities} />
+      <MapSection cities={cities} />
     </div>
   );
 }

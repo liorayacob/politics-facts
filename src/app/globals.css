@@ -286,77 +286,65 @@ a {
 .map-card {
   position: relative;
   width: 100%;
-  max-width: 380px;
-  aspect-ratio: 3 / 7;
+  max-width: 560px;
+  aspect-ratio: 4 / 5;
   margin: 1.75rem auto 0;
-  background: radial-gradient(circle at 30% 15%, var(--background-soft), #ffffff 65%);
   border: 1px solid var(--border);
   border-radius: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
-.city-marker {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+.map-loading {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  color: var(--muted);
+  background: var(--background-soft);
 }
 
-.city-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 2px rgba(22, 35, 63, 0.1), var(--shadow-sm);
-  transition: transform 0.15s ease;
+.leaflet-container {
+  background: #eef5fd;
+  font-family: var(--font-rubik), "Segoe UI", Arial, sans-serif;
 }
 
-.city-marker:hover .city-dot {
-  transform: scale(1.35);
-}
-
-.city-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--foreground);
-  background: rgba(255, 255, 255, 0.9);
-  padding: 0.05rem 0.4rem;
-  border-radius: 999px;
-  white-space: nowrap;
-  box-shadow: var(--shadow-sm);
-}
-
-.city-tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
+.leaflet-tooltip.map-tooltip {
   background: var(--foreground);
   color: #ffffff;
-  padding: 0.45rem 0.7rem;
+  border: none;
   border-radius: 0.6rem;
-  font-size: 0.75rem;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
   line-height: 1.4;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-  z-index: 5;
+  box-shadow: var(--shadow-md);
 }
 
-.city-marker:hover .city-tooltip {
-  opacity: 1;
+.leaflet-tooltip.map-tooltip::before {
+  display: none;
+}
+
+.map-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--foreground);
 }
 
 .map-caption {
   text-align: center;
-  margin-top: 0.85rem;
+  margin-top: 0.75rem;
   font-size: 0.8rem;
   max-width: 30rem;
   margin-inline: auto;

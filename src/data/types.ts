@@ -27,8 +27,6 @@ export interface ElectionResult {
 export interface CityResult {
   slug: string;
   name: string;
-  lat: number;
-  lng: number;
   turnoutPercent: number;
   votePercentByParty: Record<string, number>;
 }
