@@ -1,0 +1,7 @@
+{
+  "_readme": "Maps each ballot letter-code (the column header in the results file, e.g. 'מחל', 'פה', 'אמת') to a party slug from src/data/parties.ts. Multiple letters CAN map to the same slug — vote counts under all of them are summed. Only a handful of letters are stable across most Knesset elections (מחל=Likud, פה=Yesh Atid, אמת=Labor, שס=Shas); everything else changes per election and MUST be verified against the official ballot-letter key (מפתח אותיות) published by ועדת הבחירות המרכזית for the specific election this file covers. Run the import script once — it prints every unmapped letter-code it found (with its national vote total) so you know exactly what's left to add here.",
+  "מחל": "likud",
+  "פה": "yesh-atid",
+  "אמת": "labor",
+  "שס": "shas"
+}
