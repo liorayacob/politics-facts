@@ -5,7 +5,7 @@ export const politicians: Politician[] = [
   {
     slug: "politician-a",
     name: "שם פוליטיקאי א'",
-    partySlug: "party-a",
+    partySlug: "likud",
     role: "יו\"ר מפלגה",
     bio: "ביוגרפיה לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     isChair: true,
@@ -14,7 +14,7 @@ export const politicians: Politician[] = [
   {
     slug: "politician-c",
     name: "שם פוליטיקאי ג'",
-    partySlug: "party-a",
+    partySlug: "likud",
     role: "חבר כנסת",
     bio: "ביוגרפיה לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     isChair: false,
@@ -23,7 +23,7 @@ export const politicians: Politician[] = [
   {
     slug: "politician-d",
     name: "שם פוליטיקאית ד'",
-    partySlug: "party-a",
+    partySlug: "likud",
     role: "חברת כנסת",
     bio: "ביוגרפיה לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     isChair: false,
@@ -32,7 +32,7 @@ export const politicians: Politician[] = [
   {
     slug: "politician-b",
     name: "שם פוליטיקאי ב'",
-    partySlug: "party-b",
+    partySlug: "yesh-atid",
     role: "יו\"ר מפלגה",
     bio: "ביוגרפיה לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     isChair: true,
@@ -41,7 +41,7 @@ export const politicians: Politician[] = [
   {
     slug: "politician-e",
     name: "שם פוליטיקאית ה'",
-    partySlug: "party-b",
+    partySlug: "yesh-atid",
     role: "חברת כנסת",
     bio: "ביוגרפיה לדוגמה — יש להחליף בפרטים אמיתיים ומתועדים.",
     isChair: false,

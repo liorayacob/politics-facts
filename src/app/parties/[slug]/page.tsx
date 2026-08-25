@@ -31,15 +31,15 @@ export default async function PartyPage({
       </div>
       <p>{party.description}</p>
 
-      {members.length > 0 && (
-        <>
-          <h2>חברי המפלגה</h2>
-          <div className="member-list">
-            {members.map((member, i) => (
-              <MemberRow key={member.slug} politician={member} color={party.color} delay={i * 60} />
-            ))}
-          </div>
-        </>
+      <h2>חברי המפלגה</h2>
+      {members.length > 0 ? (
+        <div className="member-list">
+          {members.map((member, i) => (
+            <MemberRow key={member.slug} politician={member} color={party.color} delay={i * 60} />
+          ))}
+        </div>
+      ) : (
+        <p className="muted">עדיין לא נוספו חברי כנסת למפלגה זו.</p>
       )}
     </div>
   );

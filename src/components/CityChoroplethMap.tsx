@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import type { Layer, Path, LeafletMouseEvent, PathOptions } from "leaflet";
 import type { Feature, FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
@@ -17,8 +18,10 @@ function cityFromFeature(feature: Feature<Geometry, GeoJsonProperties> | undefin
 export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) {
   const [geoData, setGeoData] = useState<FeatureCollection | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     fetch("/data/cities-boundaries.json")
       .then((res) => res.json())
       .then(setGeoData)
@@ -58,35 +61,84 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
     });
   }
 
+  const modal = selectedCity && (
+    <div className="modal-backdrop" onClick={() => setSelectedSlug(null)}>
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2 style={{ margin: 0 }}>{selectedCity.name}</h2>
+          <button
+            type="button"
+            className="modal-close"
+            onClick={() => setSelectedSlug(null)}
+            aria-label="סגור"
+          >
+            ✕
+          </button>
+        </div>
+        <p className="muted">אחוז הצבעה: {selectedCity.turnoutPercent}%</p>
+        <table>
+          <thead>
+            <tr>
+              <th>מפלגה</th>
+              <th>אחוז הצבעה</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(selectedCity.votePercentByParty)
+              .sort((a, b) => b[1] - a[1])
+              .map(([partySlug, percent]) => {
+                const party = parties.find((p) => p.slug === partySlug);
+                return (
+                  <tr key={partySlug}>
+                    <td>
+                      <span
+                        className="party-dot"
+                        style={{ background: party?.color ?? "#999", marginInlineEnd: "0.5rem" }}
+                      />
+                      {party?.name ?? partySlug}
+                    </td>
+                    <td>{percent}%</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <div className="map-card">
-        {!geoData ? (
-          <div className="map-loading">טוען מפה…</div>
-        ) : (
-          <MapContainer
-            center={[31.6, 34.95]}
-            zoom={8}
-            minZoom={7}
-            scrollWheelZoom={false}
-            style={{ height: "100%", width: "100%" }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            <GeoJSON data={geoData} style={styleFeature} onEachFeature={onEachFeature} />
-          </MapContainer>
-        )}
-      </div>
+      <div className="map-layout">
+        <div className="map-card">
+          {!geoData ? (
+            <div className="map-loading">טוען מפה…</div>
+          ) : (
+            <MapContainer
+              center={[31.6, 34.95]}
+              zoom={8}
+              minZoom={7}
+              scrollWheelZoom={false}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              />
+              <GeoJSON data={geoData} style={styleFeature} onEachFeature={onEachFeature} />
+            </MapContainer>
+          )}
+        </div>
 
-      <div className="map-legend">
-        {parties.map((party) => (
-          <span key={party.slug} className="map-legend-item">
-            <span className="party-dot" style={{ background: party.color }} />
-            {party.name}
-          </span>
-        ))}
+        <div className="map-legend-panel">
+          <h3>מקרא מפלגות</h3>
+          {parties.map((party) => (
+            <div key={party.slug} className="map-legend-row">
+              <span className="party-dot" style={{ background: party.color }} />
+              {party.name}
+            </div>
+          ))}
+        </div>
       </div>
 
       <p className="muted map-caption">
@@ -94,51 +146,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
         פילוח הקולות בין המפלגות. צבע העיר מציין את המפלגה המובילה בה.
       </p>
 
-      {selectedCity && (
-        <div className="modal-backdrop" onClick={() => setSelectedSlug(null)}>
-          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2 style={{ margin: 0 }}>{selectedCity.name}</h2>
-              <button
-                type="button"
-                className="modal-close"
-                onClick={() => setSelectedSlug(null)}
-                aria-label="סגור"
-              >
-                ✕
-              </button>
-            </div>
-            <p className="muted">אחוז הצבעה: {selectedCity.turnoutPercent}%</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>מפלגה</th>
-                  <th>אחוז הצבעה</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(selectedCity.votePercentByParty)
-                  .sort((a, b) => b[1] - a[1])
-                  .map(([partySlug, percent]) => {
-                    const party = parties.find((p) => p.slug === partySlug);
-                    return (
-                      <tr key={partySlug}>
-                        <td>
-                          <span
-                            className="party-dot"
-                            style={{ background: party?.color ?? "#999", marginInlineEnd: "0.5rem" }}
-                          />
-                          {party?.name ?? partySlug}
-                        </td>
-                        <td>{percent}%</td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      {mounted && modal ? createPortal(modal, document.body) : null}
     </>
   );
 }
