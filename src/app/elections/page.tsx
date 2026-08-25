@@ -13,30 +13,32 @@ export default function ElectionsPage() {
       <SeatsChart elections={elections} />
 
       <h2>טבלת נתונים</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>שנה</th>
-            <th>כנסת</th>
-            <th>אחוז הצבעה</th>
-            {parties.map((party) => (
-              <th key={party.slug}>{party.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {elections.map((election) => (
-            <tr key={election.knesset}>
-              <td>{election.year}</td>
-              <td>{election.knesset}</td>
-              <td>{election.turnoutPercent}%</td>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>שנה</th>
+              <th>כנסת</th>
+              <th>אחוז הצבעה</th>
               {parties.map((party) => (
-                <td key={party.slug}>{election.seatsByParty[party.slug] ?? "—"}</td>
+                <th key={party.slug}>{party.name}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {elections.map((election) => (
+              <tr key={election.knesset}>
+                <td>{election.year}</td>
+                <td>{election.knesset}</td>
+                <td>{election.turnoutPercent}%</td>
+                {parties.map((party) => (
+                  <td key={party.slug}>{election.seatsByParty[party.slug] ?? "—"}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <h2>מפה לפי ערים</h2>
       <MapSection cities={cities} />
