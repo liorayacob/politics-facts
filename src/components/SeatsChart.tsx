@@ -10,7 +10,6 @@ import {
   CartesianGrid,
 } from "recharts";
 import type { ElectionResult, Ticket } from "@/data/types";
-import { getPartyBySlug } from "@/data/parties";
 import { getTicketsByKnesset } from "@/data/tickets";
 import PartyLegend from "./PartyLegend";
 
@@ -22,57 +21,24 @@ function seriesKeyFor(ticket: Ticket): string {
   return ticket.memberPartySlugs.length === 1 ? ticket.memberPartySlugs[0] : ticket.slug;
 }
 
-function findTicket(knesset: number, seriesKey: string): Ticket | undefined {
-  return getTicketsByKnesset(knesset).find((t) => seriesKeyFor(t) === seriesKey);
-}
-
 function ChartTooltip({
   active,
   payload,
-  label,
 }: {
   active?: boolean;
-  payload?: { dataKey?: string | number; value?: number | string }[];
-  label?: string;
+  payload?: { name?: string; value?: number | string; color?: string }[];
 }) {
   if (!active || !payload?.length) return null;
 
-  const knesset = Number(String(label).replace(/\D/g, ""));
-  const rows = payload
-    .filter((entry) => typeof entry.value === "number" && entry.value > 0)
-    .sort((a, b) => (b.value as number) - (a.value as number));
-
-  if (rows.length === 0) return null;
+  const entry = payload[0];
+  if (typeof entry.value !== "number") return null;
 
   return (
     <div className="chart-tooltip">
-      <strong>{label}</strong>
-      {rows.map((entry) => {
-        const seriesKey = String(entry.dataKey);
-        const ticket = findTicket(knesset, seriesKey);
-        const isJoint = (ticket?.memberPartySlugs.length ?? 0) > 1;
-        return (
-          <div key={seriesKey} className="chart-tooltip-row-group">
-            <div className="chart-tooltip-row">
-              <span className="party-dot" style={{ background: ticket?.color ?? "#999" }} />
-              {ticket?.name ?? seriesKey}: {entry.value}
-              {ticket && <span className="chart-tooltip-letter"> (אות {ticket.letter})</span>}
-            </div>
-            {isJoint && (
-              <div className="chart-tooltip-sublist">
-                רשימה משותפת:{" "}
-                {ticket!.memberPartySlugs
-                  .map((slug) => {
-                    const party = getPartyBySlug(slug);
-                    const seats = ticket!.seatsByMemberParty?.[slug];
-                    return `${party?.name ?? slug}${seats ? ` (${seats})` : ""}`;
-                  })
-                  .join(", ")}
-              </div>
-            )}
-          </div>
-        );
-      })}
+      <div className="chart-tooltip-row">
+        <span className="party-dot" style={{ background: entry.color ?? "#999" }} />
+        {entry.name}: {entry.value}
+      </div>
     </div>
   );
 }
@@ -116,7 +82,7 @@ export default function SeatsChart({ elections }: { elections: ElectionResult[] 
             <CartesianGrid strokeDasharray="3 3" stroke="#e6ddc7" vertical={false} />
             <XAxis dataKey="name" stroke="#7c7261" tick={{ fill: "#7c7261" }} />
             <YAxis stroke="#7c7261" tick={{ fill: "#7c7261" }} />
-            <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(184, 121, 26, 0.08)" }} />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(184, 121, 26, 0.08)" }} shared={false} />
             {series.map((s) => (
               <Bar key={s.slug} dataKey={s.slug} name={s.name} fill={s.color} />
             ))}
