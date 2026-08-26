@@ -9,7 +9,19 @@ import "leaflet/dist/leaflet.css";
 import type { CityResult } from "@/data/types";
 import { parties, getPartyBySlug } from "@/data/parties";
 import { getWinningPartySlug } from "@/data/cities";
+import { getTicketsByKnesset } from "@/data/tickets";
 import PartyLegend from "./PartyLegend";
+
+// City-level results are all from Knesset 25 — a real per-ballot-letter vote
+// can't be split among a joint list's member parties per city (only the
+// national seat count can, by list position), so e.g. "הציונות הדתית" here
+// stands for the whole joint list including עוצמה יהודית and נעם.
+const CITY_DATA_KNESSET = 25;
+const cityTickets = getTicketsByKnesset(CITY_DATA_KNESSET);
+function jointTicketFor(partySlug: string) {
+  const ticket = cityTickets.find((t) => t.memberPartySlugs.includes(partySlug));
+  return ticket && ticket.memberPartySlugs.length > 1 ? ticket : undefined;
+}
 
 function cityFromFeature(feature: Feature<Geometry, GeoJsonProperties> | undefined, cities: CityResult[]) {
   const slug = feature?.properties?.slug as string | undefined;
@@ -35,6 +47,14 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
   }, []);
 
   const selectedCity = cities.find((c) => c.slug === selectedSlug) ?? null;
+
+  const partiesWithCityData = new Set<string>();
+  cities.forEach((c) =>
+    Object.entries(c.votePercentByParty).forEach(([slug, percent]) => {
+      if (percent > 0) partiesWithCityData.add(slug);
+    })
+  );
+  const mapLegendParties = parties.filter((p) => partiesWithCityData.has(p.slug));
 
   const suggestions =
     query.trim().length > 0
@@ -115,6 +135,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
                 .sort((a, b) => b[1] - a[1])
                 .map(([partySlug, percent]) => {
                   const party = parties.find((p) => p.slug === partySlug);
+                  const joint = jointTicketFor(partySlug);
                   return (
                     <tr key={partySlug}>
                       <td>
@@ -123,6 +144,17 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
                           style={{ background: party?.color ?? "#999", marginInlineEnd: "0.5rem" }}
                         />
                         {party?.name ?? partySlug}
+                        {joint && (
+                          <span className="muted">
+                            {" "}
+                            (רשימה משותפת עם{" "}
+                            {joint.memberPartySlugs
+                              .filter((slug) => slug !== partySlug)
+                              .map((slug) => getPartyBySlug(slug)?.name ?? slug)
+                              .join(" ו")}
+                            )
+                          </span>
+                        )}
                       </td>
                       <td>{percent}%</td>
                     </tr>
@@ -194,7 +226,7 @@ export default function CityChoroplethMap({ cities }: { cities: CityResult[] }) 
           )}
         </div>
 
-        <PartyLegend />
+        <PartyLegend parties={mapLegendParties} />
       </div>
 
       <p className="muted map-caption">
