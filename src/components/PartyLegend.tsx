@@ -1,12 +1,17 @@
 import { parties as allParties } from "@/data/parties";
-import type { Party } from "@/data/types";
+
+interface LegendEntry {
+  slug: string;
+  name: string;
+  color: string;
+}
 
 export default function PartyLegend({
   title = "מקרא מפלגות",
   parties = allParties,
 }: {
   title?: string;
-  parties?: Party[];
+  parties?: LegendEntry[];
 }) {
   return (
     <div className="map-legend-panel">

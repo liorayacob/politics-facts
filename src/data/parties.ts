@@ -158,7 +158,22 @@ export const parties: Party[] = [
     description: "רשימה בנושאי סביבה ובעלי חיים.",
     ideology: ["סביבה", "בעלי חיים"],
   },
-
+  {
+    slug: "otzma-yehudit",
+    name: "עוצמה יהודית",
+    founded: 2012,
+    color: "#ae2929",
+    description: "מפלגה ציונית־דתית בראשות איתמר בן גביר. רצה בכנסת ה־25 ברשימה משותפת עם הציונות הדתית ונעם.",
+    ideology: ["ציונות דתית", "ימין"],
+  },
+  {
+    slug: "noam",
+    name: "נעם",
+    founded: 2019,
+    color: "#775d22",
+    description: "מפלגה ציונית־דתית שמרנית בראשות אבי מעוז. רצה בכנסת ה־25 ברשימה משותפת עם הציונות הדתית ועוצמה יהודית.",
+    ideology: ["ציונות דתית", "שמרנות"],
+  },
 ];
 
 export function getPartyBySlug(slug: string): Party | undefined {

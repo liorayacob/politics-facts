@@ -754,6 +754,21 @@ tbody tr:hover {
   padding: 0.1rem 0;
 }
 
+.chart-tooltip-row-group {
+  padding: 0.2rem 0;
+}
+
+.chart-tooltip-letter {
+  opacity: 0.7;
+  font-size: 0.75rem;
+}
+
+.chart-tooltip-sublist {
+  margin-right: 1.1rem;
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
 h1 {
   font-family: var(--font-serif), serif;
   font-size: 2.1rem;

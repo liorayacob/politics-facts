@@ -9,9 +9,22 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import type { ElectionResult } from "@/data/types";
-import { parties, getPartyBySlug } from "@/data/parties";
+import type { ElectionResult, Ticket } from "@/data/types";
+import { getPartyBySlug } from "@/data/parties";
+import { getTicketsByKnesset } from "@/data/tickets";
 import PartyLegend from "./PartyLegend";
+
+// A ticket running alone is charted under its own party's slug so the same
+// party lines up as one consistent, same-colored series across elections.
+// A joint ticket (multiple member parties) gets its own series keyed by the
+// ticket slug, since it's a genuinely different electoral entity.
+function seriesKeyFor(ticket: Ticket): string {
+  return ticket.memberPartySlugs.length === 1 ? ticket.memberPartySlugs[0] : ticket.slug;
+}
+
+function findTicket(knesset: number, seriesKey: string): Ticket | undefined {
+  return getTicketsByKnesset(knesset).find((t) => seriesKeyFor(t) === seriesKey);
+}
 
 function ChartTooltip({
   active,
@@ -24,6 +37,7 @@ function ChartTooltip({
 }) {
   if (!active || !payload?.length) return null;
 
+  const knesset = Number(String(label).replace(/\D/g, ""));
   const rows = payload
     .filter((entry) => typeof entry.value === "number" && entry.value > 0)
     .sort((a, b) => (b.value as number) - (a.value as number));
@@ -34,11 +48,28 @@ function ChartTooltip({
     <div className="chart-tooltip">
       <strong>{label}</strong>
       {rows.map((entry) => {
-        const party = getPartyBySlug(String(entry.dataKey));
+        const seriesKey = String(entry.dataKey);
+        const ticket = findTicket(knesset, seriesKey);
+        const isJoint = (ticket?.memberPartySlugs.length ?? 0) > 1;
         return (
-          <div key={String(entry.dataKey)} className="chart-tooltip-row">
-            <span className="party-dot" style={{ background: party?.color ?? "#999" }} />
-            {party?.name ?? entry.dataKey}: {entry.value}
+          <div key={seriesKey} className="chart-tooltip-row-group">
+            <div className="chart-tooltip-row">
+              <span className="party-dot" style={{ background: ticket?.color ?? "#999" }} />
+              {ticket?.name ?? seriesKey}: {entry.value}
+              {ticket && <span className="chart-tooltip-letter"> (אות {ticket.letter})</span>}
+            </div>
+            {isJoint && (
+              <div className="chart-tooltip-sublist">
+                רשימה משותפת:{" "}
+                {ticket!.memberPartySlugs
+                  .map((slug) => {
+                    const party = getPartyBySlug(slug);
+                    const seats = ticket!.seatsByMemberParty?.[slug];
+                    return `${party?.name ?? slug}${seats ? ` (${seats})` : ""}`;
+                  })
+                  .join(", ")}
+              </div>
+            )}
           </div>
         );
       })}
@@ -47,13 +78,34 @@ function ChartTooltip({
 }
 
 export default function SeatsChart({ elections }: { elections: ElectionResult[] }) {
-  const data = elections.map((election) => ({
-    name: `כנסת ${election.knesset}`,
-    ...election.seatsByParty,
+  const ticketsByElection = elections.map((election) => ({
+    election,
+    tickets: getTicketsByKnesset(election.knesset),
   }));
 
-  const partiesInChart = parties.filter((party) =>
-    elections.some((election) => (election.seatsByParty[party.slug] ?? 0) > 0)
+  const data = ticketsByElection.map(({ election, tickets }) => {
+    const row: Record<string, number | string> = { name: `כנסת ${election.knesset}` };
+    tickets.forEach((ticket) => {
+      row[seriesKeyFor(ticket)] = ticket.seats;
+    });
+    return row;
+  });
+
+  const seriesMap = new Map<string, { name: string; color: string }>();
+  ticketsByElection.forEach(({ tickets }) => {
+    tickets.forEach((ticket) => {
+      const key = seriesKeyFor(ticket);
+      if (!seriesMap.has(key)) {
+        seriesMap.set(key, { name: ticket.name, color: ticket.color });
+      }
+    });
+  });
+  const series = Array.from(seriesMap.entries()).map(([slug, v]) => ({ slug, ...v }));
+
+  // Two series can share a name+color (e.g. "הציונות הדתית" ran alone in
+  // knesset 23–24, then joint in 25) — the legend should show it once.
+  const legendSeries = Array.from(
+    new Map(series.map((s) => [s.name, s])).values()
   );
 
   return (
@@ -65,13 +117,13 @@ export default function SeatsChart({ elections }: { elections: ElectionResult[] 
             <XAxis dataKey="name" stroke="#7c7261" tick={{ fill: "#7c7261" }} />
             <YAxis stroke="#7c7261" tick={{ fill: "#7c7261" }} />
             <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(184, 121, 26, 0.08)" }} />
-            {partiesInChart.map((party) => (
-              <Bar key={party.slug} dataKey={party.slug} name={party.name} fill={party.color} />
+            {series.map((s) => (
+              <Bar key={s.slug} dataKey={s.slug} name={s.name} fill={s.color} />
             ))}
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <PartyLegend title="מקרא" parties={partiesInChart} />
+      <PartyLegend title="מקרא" parties={legendSeries} />
     </div>
   );
 }

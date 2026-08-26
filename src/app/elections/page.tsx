@@ -1,5 +1,6 @@
 import { elections } from "@/data/elections";
-import { parties } from "@/data/parties";
+import { getTicketsByKnesset } from "@/data/tickets";
+import { getPartyBySlug } from "@/data/parties";
 import { cities } from "@/data/cities";
 import SeatsChart from "@/components/SeatsChart";
 import MapSection from "@/components/MapSection";
@@ -17,25 +18,39 @@ export default function ElectionsPage() {
         <table>
           <thead>
             <tr>
-              <th>שנה</th>
               <th>כנסת</th>
+              <th>אות</th>
+              <th>רשימה</th>
               <th>אחוז הצבעה</th>
-              {parties.map((party) => (
-                <th key={party.slug}>{party.name}</th>
-              ))}
+              <th>מנדטים</th>
             </tr>
           </thead>
           <tbody>
-            {elections.map((election) => (
-              <tr key={election.knesset}>
-                <td>{election.year}</td>
-                <td>{election.knesset}</td>
-                <td>{election.turnoutPercent}%</td>
-                {parties.map((party) => (
-                  <td key={party.slug}>{election.seatsByParty[party.slug] ?? "—"}</td>
-                ))}
-              </tr>
-            ))}
+            {elections.map((election) =>
+              getTicketsByKnesset(election.knesset).map((ticket) => (
+                <tr key={ticket.slug}>
+                  <td>{election.knesset}</td>
+                  <td>{ticket.letter}</td>
+                  <td>
+                    <span className="party-dot" style={{ background: ticket.color }} />{" "}
+                    {ticket.name}
+                    {ticket.memberPartySlugs.length > 1 && (
+                      <span className="muted">
+                        {" "}
+                        (רשימה משותפת עם{" "}
+                        {ticket.memberPartySlugs
+                          .filter((slug) => getPartyBySlug(slug)?.name !== ticket.name)
+                          .map((slug) => getPartyBySlug(slug)?.name ?? slug)
+                          .join(" ו")}
+                        )
+                      </span>
+                    )}
+                  </td>
+                  <td>{ticket.votePct}%</td>
+                  <td>{ticket.seats}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
